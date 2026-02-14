@@ -6,169 +6,146 @@
 <title>Para Stefany 💜</title>
 
 <style>
-* { box-sizing: border-box; }
+*{box-sizing:border-box}
 
-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    padding: 20px;
-    background:
-      radial-gradient(circle at 20% 30%, #ffffff33, transparent 25%),
-      radial-gradient(circle at 80% 40%, #ffffff22, transparent 20%),
-      radial-gradient(circle at 50% 70%, #ffffff18, transparent 30%),
-      linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-    background-size: 200% 200%;
-    animation: galaxyMove 15s ease infinite;
-    font-family: Arial, sans-serif;
-    text-align: center;
-    overflow: hidden;
-    color: white;
+body{
+margin:0;
+padding:20px;
+min-height:100vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+font-family:Arial,sans-serif;
+color:white;
+overflow:hidden;
+background:
+radial-gradient(circle at 20% 30%, #ffffff33, transparent 25%),
+radial-gradient(circle at 80% 40%, #ffffff22, transparent 20%),
+radial-gradient(circle at 50% 70%, #ffffff18, transparent 30%),
+linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+background-size:200% 200%;
+animation:galaxyMove 15s ease infinite;
+transition:background 4s ease;
 }
 
-@keyframes galaxyMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+body.night{
+background:
+radial-gradient(circle at 30% 40%, #ffffff22, transparent 25%),
+linear-gradient(135deg,#020024,#090979,#000);
 }
 
-/* NOMBRE */
-.name {
-    font-size: clamp(32px, 6vw, 46px);
-    font-weight: bold;
-    position: relative;
-    animation: fadeIn 2s ease;
+@keyframes galaxyMove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
 }
 
-.name::after {
-    content: "✨";
-    position: absolute;
-    right: -28px;
-    top: -10px;
-    animation: sparkle 2s infinite;
+/* CANVAS */
+canvas{
+position:absolute;
+top:0;left:0;
+width:100%;height:100%;
+z-index:-1;
 }
 
-@keyframes sparkle {
-    0% { transform: scale(0.5); opacity: 0; }
-    50% { transform: scale(1.2); opacity: 1; }
-    100% { transform: scale(0.5); opacity: 0; }
+/* TEXTO */
+.name{
+font-size:clamp(32px,6vw,46px);
+font-weight:bold;
+animation:fadeIn 2s ease;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+.message{
+margin-top:15px;
+padding:20px;
+background:rgba(255,255,255,0.15);
+border-radius:15px;
+font-size:clamp(18px,4vw,24px);
+backdrop-filter:blur(10px);
+animation:float 3s infinite;
 }
 
-/* MENSAJE */
-.message {
-    background: rgba(255,255,255,0.15);
-    padding: clamp(16px, 4vw, 25px);
-    border-radius: 15px;
-    font-size: clamp(18px, 4vw, 24px);
-    margin-top: 20px;
-    backdrop-filter: blur(10px);
-    animation: floatMessage 3s ease-in-out infinite;
-    max-width: 90%;
+@keyframes float{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-8px)}
 }
 
-@keyframes floatMessage {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
-}
+#countdown{margin-top:12px}
 
-/* CONTADOR */
-#countdown {
-    margin-top: 15px;
-    font-size: clamp(16px, 3.5vw, 20px);
-}
-
-/* TE AMO */
-.love-text {
-    margin-top: 15px;
-    font-size: clamp(22px, 5vw, 30px);
-    font-weight: bold;
-    letter-spacing: 2px;
-    color: #f9a8d4;
+.love-text{
+margin-top:12px;
+font-size:28px;
+color:#f9a8d4;
+font-weight:bold;
 }
 
 /* CARTA */
-.letter-container {
-    margin-top: 25px;
-    perspective: 1000px;
-    cursor: pointer;
+.letter-container{
+margin-top:20px;
+perspective:1000px;
+cursor:pointer;
 }
-
-.letter {
-    width: clamp(180px, 60vw, 240px);
-    height: clamp(120px, 35vw, 150px);
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 1s;
+.letter{
+width:220px;height:140px;
+transition:transform 1s;
+transform-style:preserve-3d;
 }
-
-.letter.open { transform: rotateY(180deg); }
-
-.letter-front, .letter-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(255,255,255,0.15);
-    border-radius: 14px;
-    backdrop-filter: blur(10px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backface-visibility: hidden;
+.letter.open{transform:rotateY(180deg)}
+.letter div{
+position:absolute;
+width:100%;height:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:14px;
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(10px);
+backface-visibility:hidden;
 }
-
-.letter-front { font-size: 34px; }
-
-.letter-back {
-    transform: rotateY(180deg);
-    font-size: clamp(14px, 3.5vw, 16px);
-    padding: 15px;
-    text-align: center;
+.letter-back{
+transform:rotateY(180deg);
+padding:15px;
+font-size:14px;
 }
 
 /* BOTÓN */
-.music-btn {
-    margin-top: 25px;
-    padding: 12px 22px;
-    border: none;
-    border-radius: 25px;
-    background: #ec4899;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
+.music-btn{
+margin-top:20px;
+padding:12px 22px;
+border:none;
+border-radius:25px;
+background:#ec4899;
+color:white;
+font-size:16px;
+}
+
+/* MENSAJES SECRETOS */
+.secret{
+position:absolute;
+color:#fbcfe8;
+font-size:18px;
+animation:fadeSecret 2s forwards;
+pointer-events:none;
+}
+@keyframes fadeSecret{
+0%{opacity:0;transform:translateY(10px)}
+30%{opacity:1}
+100%{opacity:0;transform:translateY(-30px)}
 }
 
 /* CORAZONES */
-@keyframes floatUp {
-    from { transform: translateY(0); opacity: 1; }
-    to { transform: translateY(-120vh); opacity: 0; }
-}
-
-/* FUEGOS */
-.firework {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    background: white;
-    border-radius: 50%;
-    animation: explode 1s ease-out forwards;
-}
-
-@keyframes explode {
-    from { transform: scale(1); opacity: 1; }
-    to { transform: scale(18); opacity: 0; }
+@keyframes floatUp{
+from{transform:translateY(0);opacity:1}
+to{transform:translateY(-120vh);opacity:0}
 }
 </style>
 </head>
 
 <body>
+
+<canvas id="stars"></canvas>
 
 <div class="name">Stefany 💜</div>
 <div class="message">Eres mi lugar seguro 🫶</div>
@@ -176,144 +153,140 @@ body {
 <div id="loveText" class="love-text"></div>
 
 <div class="letter-container" onclick="openLetter()">
-    <div class="letter">
-        <div class="letter-front">💌</div>
-        <div class="letter-back">
-            <p>
-                Desde que llegaste,<br>
-                todo se siente más bonito.<br><br>
-                Gracias por ser mi lugar seguro 💜
-            </p>
-        </div>
-    </div>
+<div class="letter">
+<div>💌</div>
+<div class="letter-back">
+Gracias por ser mi lugar seguro 💜
+</div>
+</div>
 </div>
 
-<button onclick="playMusic()" class="music-btn">
-💜 Reproducir nuestra canción 💜
-</button>
+<button class="music-btn" onclick="playMusic()">💜 Reproducir nuestra canción 💜</button>
 
-<audio id="loveSong" loop preload="auto">
-    <source src="cancion.mp3" type="audio/mpeg">
+<audio id="loveSong" preload="auto" loop>
+<source src="cancion.mp3" type="audio/mpeg">
 </audio>
 
 <script>
+/* ESTRELLAS + CONSTELACIÓN */
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+function resize(){
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+}
+resize();onresize=resize;
+
+let stars=[];
+for(let i=0;i<120;i++){
+stars.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*1.5+0.5
+});
+}
+
+function drawStars(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="white";
+stars.forEach(s=>{
+ctx.beginPath();
+ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+ctx.fill();
+});
+drawConstellation();
+requestAnimationFrame(drawStars);
+}
+drawStars();
+
+function drawConstellation(){
+const text="STEFANY";
+ctx.font="18px Arial";
+ctx.fillStyle="#f9a8d4";
+ctx.fillText(text,canvas.width/2-60,canvas.height/2);
+}
+
 /* FRASES */
-const mainMessages = [
- "Eres mi lugar seguro 🫶",
- "Contigo todo se siente en paz 🌙",
- "Tu sonrisa ilumina mis días ✨",
- "Gracias por existir 💖",
- "Eres mi persona favorita 💞",
- "Siempre pienso en ti 💭",
- "Me haces sentir en casa 🏡",
- "Tú y yo contra el mundo 🌎",
- "Eres lo mejor que me ha pasado 💫",
- "Si las miradas mataran, la tuya me hizo el amor 😌"
+const phrases=[
+"Eres mi lugar seguro 🫶",
+"Contigo todo es paz 🌙",
+"Siempre pienso en ti 💭"
 ];
+setInterval(()=>{
+document.querySelector(".message").innerText=
+phrases[Math.floor(Math.random()*phrases.length)];
+},4000);
 
-setInterval(() => {
-  document.querySelector(".message").innerText =
-  mainMessages[Math.floor(Math.random() * mainMessages.length)];
-}, 4000);
+/* MENSAJES SECRETOS */
+const secrets=[
+"Siempre contigo 💜",
+"Eres hogar",
+"Mi persona favorita",
+"No te suelto"
+];
+document.body.addEventListener("click",e=>{
+const s=document.createElement("div");
+s.className="secret";
+s.innerText=secrets[Math.floor(Math.random()*secrets.length)];
+s.style.left=e.clientX+"px";
+s.style.top=e.clientY+"px";
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),2000);
+});
 
-/* VIBRACIÓN */
-function vibrate(pattern = [100, 50, 100]) {
-    if (navigator.vibrate) {
-        navigator.vibrate(pattern);
-    }
+/* CONTADOR + NOCHE */
+let t=10;
+const cd=document.getElementById("countdown");
+const timer=setInterval(()=>{
+t--;
+cd.innerText="La sorpresa comienza en: "+t;
+if(t<=0){
+clearInterval(timer);
+cd.innerText="💜 Siempre serás mi lugar seguro 💜";
+typeLove();
+setTimeout(()=>document.body.classList.add("night"),30000);
 }
-
-/* CORAZONES */
-function createHeart() {
-    const heart = document.createElement("div");
-    const hearts = ["💜","💖","💗","💘","💞"];
-    heart.innerHTML = hearts[Math.floor(Math.random()*hearts.length)];
-    heart.style.position = "absolute";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.top = "100vh";
-    heart.style.fontSize = Math.random() * 20 + 18 + "px";
-    heart.style.animation = "floatUp 6s linear forwards";
-    heart.style.pointerEvents = "none";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
-}
-setInterval(createHeart, 450);
-
-/* CONTADOR */
-let timeLeft = 10;
-const countdown = document.getElementById("countdown");
-
-const timer = setInterval(() => {
-    timeLeft--;
-    countdown.innerText = "La sorpresa comienza en: " + timeLeft;
-    vibrate([50]);
-
-    if (timeLeft <= 0) {
-        clearInterval(timer);
-        countdown.innerText = "💜 Siempre serás mi lugar seguro 💜";
-        launchFireworks();
-        typeLove();
-        vibrate([200, 100, 200]);
-    }
-}, 1000);
-
-/* FUEGOS */
-function launchFireworks() {
-    for (let i = 0; i < 40; i++) {
-        const firework = document.createElement("div");
-        firework.className = "firework";
-        firework.style.left = Math.random() * 100 + "vw";
-        firework.style.top = Math.random() * 80 + "vh";
-        document.body.appendChild(firework);
-        setTimeout(() => firework.remove(), 1000);
-    }
-}
+},1000);
 
 /* TE AMO */
-const loveMessage = "Te amo 💜";
-let index = 0;
-
-function typeLove() {
-    if (index < loveMessage.length) {
-        document.getElementById("loveText").innerHTML += loveMessage.charAt(index);
-        vibrate([30]);
-        index++;
-        setTimeout(typeLove, 180);
-    }
+const text="Te amo 💜";
+let i=0;
+function typeLove(){
+if(i<text.length){
+loveText.innerHTML+=text.charAt(i++);
+setTimeout(typeLove,180);
+}
 }
 
 /* CARTA */
-function openLetter() {
-    document.querySelector(".letter").classList.toggle("open");
-    vibrate([100, 50, 100]);
+function openLetter(){
+document.querySelector(".letter").classList.toggle("open");
 }
 
 /* MÚSICA */
-let isPlaying = false;
-const song = document.getElementById("loveSong");
-
-function playMusic() {
-    if (!isPlaying) {
-        song.currentTime = 0;
-        song.muted = false;
-        song.play().then(() => {
-            isPlaying = true;
-            vibrate([300]);
-        }).catch(() => {
-            alert("Toca el botón otra vez para activar la música 💜");
-        });
-    } else {
-        song.pause();
-        isPlaying = false;
-        vibrate([150]);
-    }
+const song=document.getElementById("loveSong");
+let playing=false;
+function playMusic(){
+if(!playing){
+song.play().then(()=>playing=true)
+.catch(()=>alert("Toca de nuevo 💜"));
+}else{
+song.pause();playing=false;
+}
 }
 
-/* DESBLOQUEO AUDIO CELULAR */
-document.body.addEventListener("touchstart", () => {
-    song.play().then(() => song.pause());
-}, { once: true });
+/* DESBLOQUEO AUDIO */
+document.body.addEventListener("touchstart",()=>{
+song.play().then(()=>song.pause());
+},{once:true});
+
+/* FINAL CINEMATOGRÁFICO */
+window.addEventListener("beforeunload",e=>{
+e.preventDefault();
+e.returnValue="Gracias por sentir esto conmigo 💜";
+});
 </script>
 
 </body>
 </html>
+
