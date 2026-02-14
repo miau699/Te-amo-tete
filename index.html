@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Para Stefany 💜</title>
+<title>Para ti 💜</title>
 
 <style>
 *{box-sizing:border-box}
@@ -42,7 +42,7 @@ linear-gradient(135deg,#020024,#090979,#000);
 100%{background-position:0% 50%}
 }
 
-/* CANVAS */
+/* CANVAS ESTRELLAS */
 canvas{
 position:absolute;
 top:0;left:0;
@@ -50,7 +50,7 @@ width:100%;height:100%;
 z-index:-1;
 }
 
-/* TEXTO */
+/* TEXTOS */
 .name{
 font-size:clamp(32px,6vw,46px);
 font-weight:bold;
@@ -65,6 +65,7 @@ border-radius:15px;
 font-size:clamp(18px,4vw,24px);
 backdrop-filter:blur(10px);
 animation:float 3s infinite;
+max-width:90%;
 }
 
 @keyframes float{
@@ -134,12 +135,6 @@ pointer-events:none;
 30%{opacity:1}
 100%{opacity:0;transform:translateY(-30px)}
 }
-
-/* CORAZONES */
-@keyframes floatUp{
-from{transform:translateY(0);opacity:1}
-to{transform:translateY(-120vh);opacity:0}
-}
 </style>
 </head>
 
@@ -147,7 +142,7 @@ to{transform:translateY(-120vh);opacity:0}
 
 <canvas id="stars"></canvas>
 
-<div class="name">Stefany 💜</div>
+<div class="name">💜</div>
 <div class="message">Eres mi lugar seguro 🫶</div>
 <div id="countdown">La sorpresa comienza en: 10</div>
 <div id="loveText" class="love-text"></div>
@@ -156,7 +151,7 @@ to{transform:translateY(-120vh);opacity:0}
 <div class="letter">
 <div>💌</div>
 <div class="letter-back">
-Gracias por ser mi lugar seguro 💜
+Feliz 14 de febrero, amor 💜
 </div>
 </div>
 </div>
@@ -168,7 +163,7 @@ Gracias por ser mi lugar seguro 💜
 </audio>
 
 <script>
-/* ESTRELLAS + CONSTELACIÓN */
+/* ESTRELLAS */
 const canvas=document.getElementById("stars");
 const ctx=canvas.getContext("2d");
 function resize(){
@@ -194,24 +189,24 @@ ctx.beginPath();
 ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
 ctx.fill();
 });
-drawConstellation();
 requestAnimationFrame(drawStars);
 }
 drawStars();
 
-function drawConstellation(){
-const text="STEFANY";
-ctx.font="18px Arial";
-ctx.fillStyle="#f9a8d4";
-ctx.fillText(text,canvas.width/2-60,canvas.height/2);
-}
-
-/* FRASES */
+/* MENSAJES PRINCIPALES */
 const phrases=[
 "Eres mi lugar seguro 🫶",
-"Contigo todo es paz 🌙",
-"Siempre pienso en ti 💭"
+"Contigo todo se siente en paz 🌙",
+"Tu sonrisa ilumina mis días ✨",
+"Gracias por existir 💖",
+"Eres mi persona favorita 💞",
+"Siempre pienso en ti 💭",
+"Eres mi negra tomasa 😌🖤",
+"Tú y yo contra el mundo 🌎",
+"Eres lo mejor que me ha pasado 💫",
+"Si las miradas mataran, la tuya me hizo el amor 😌"
 ];
+
 setInterval(()=>{
 document.querySelector(".message").innerText=
 phrases[Math.floor(Math.random()*phrases.length)];
@@ -224,6 +219,7 @@ const secrets=[
 "Mi persona favorita",
 "No te suelto"
 ];
+
 document.body.addEventListener("click",e=>{
 const s=document.createElement("div");
 s.className="secret";
@@ -242,7 +238,7 @@ t--;
 cd.innerText="La sorpresa comienza en: "+t;
 if(t<=0){
 clearInterval(timer);
-cd.innerText="💜 Siempre serás mi lugar seguro 💜";
+cd.innerText="Mi corazón tiene tanto de ti que ya es difícil de llamarlo mío 💜";
 typeLove();
 setTimeout(()=>document.body.classList.add("night"),30000);
 }
@@ -289,4 +285,3 @@ e.returnValue="Gracias por sentir esto conmigo 💜";
 
 </body>
 </html>
-
