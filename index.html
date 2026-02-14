@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para ti 💜</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+margin:0;
+padding:20px;
+min-height:100vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+font-family:Arial,sans-serif;
+color:white;
+overflow:hidden;
+background:
+radial-gradient(circle at 20% 30%, #ffffff22, transparent 25%),
+radial-gradient(circle at 80% 40%, #ffffff18, transparent 20%),
+radial-gradient(circle at 50% 70%, #ffffff14, transparent 30%),
+linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+background-size:200% 200%;
+animation:galaxyMove 15s ease infinite;
+transition:background 4s ease;
+}
+
+body.night{
+background:linear-gradient(135deg,#020024,#090979,#000);
+}
+
+@keyframes galaxyMove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+canvas{
+position:absolute;
+top:0;left:0;
+width:100%;height:100%;
+z-index:-1;
+}
+
+.name{
+font-size:clamp(32px,6vw,46px);
+font-weight:bold;
+}
+
+.message{
+margin-top:15px;
+padding:20px;
+background:rgba(255,255,255,0.15);
+border-radius:15px;
+font-size:clamp(18px,4vw,24px);
+backdrop-filter:blur(10px);
+animation:float 3s infinite;
+max-width:90%;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-8px)}
+}
+
+#countdown{margin-top:12px}
+
+.love-text{
+margin-top:12px;
+font-size:28px;
+color:#f9a8d4;
+font-weight:bold;
+}
+
+.letter-container{
+margin-top:20px;
+perspective:1000px;
+cursor:pointer;
+}
+
+.letter{
+width:220px;height:140px;
+transition:transform 1s;
+transform-style:preserve-3d;
+}
+
+.letter.open{transform:rotateY(180deg)}
+
+.letter div{
+position:absolute;
+width:100%;height:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:14px;
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(10px);
+backface-visibility:hidden;
+}
+
+.letter-back{
+transform:rotateY(180deg);
+padding:15px;
+font-size:14px;
+}
+
+.music-btn{
+margin-top:20px;
+padding:12px 22px;
+border:none;
+border-radius:25px;
+background:#ec4899;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+.secret{
+position:absolute;
+color:#fbcfe8;
+font-size:18px;
+animation:fadeSecret 2s forwards;
+pointer-events:none;
+}
+
+@keyframes fadeSecret{
+0%{opacity:0;transform:translateY(10px)}
+30%{opacity:1}
+100%{opacity:0;transform:translateY(-30px)}
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+
+<div class="name">💜</div>
+<div class="message">Te amo con todo mi  ser 💜  🫶</div>
+<div id="countdown">La sorpresa comienza en: 10</div>
+<div id="loveText" class="love-text"></div>
+
+<div class="letter-container" onclick="openLetter()">
+  <div class="letter">
+    <div>💌</div>
+    <div class="letter-back">
+      Feliz 14 de febrero, amor 💜
+    </div>
+  </div>
+</div>
+
+<button class="music-btn" id="musicBtn">
+💜 Reproducir nuestra canción 💜
+</button>
+
+<audio id="loveSong" preload="auto">
+  <source src="cancion.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* ESTRELLAS */
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+function resize(){
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+}
+resize();onresize=resize;
+
+let stars=[];
+for(let i=0;i<120;i++){
+stars.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*1.5+0.5
+});
+}
+
+function drawStars(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="white";
+stars.forEach(s=>{
+ctx.beginPath();
+ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+ctx.fill();
+});
+requestAnimationFrame(drawStars);
+}
+drawStars();
+
+/* MENSAJES */
+const phrases=[
+"Eres mi lugar seguro 🫶",
+"Contigo todo se siente en paz 🌙",
+"Tu sonrisa ilumina mis días ✨",
+"Gracias por existir 💖",
+"Eres mi persona favorita 💞",
+"Siempre pienso en ti 💭",
+"Eres mi negra tomasa 😌🖤",
+"Tú y yo contra el mundo 🌎",
+"Eres lo mejor que me ha pasado 💫",
+"Si las miradas mataran, la tuya me hizo el amor 😌"
+];
+
+setInterval(()=>{
+document.querySelector(".message").innerText=
+phrases[Math.floor(Math.random()*phrases.length)];
+},4000);
+
+/* MENSAJES SECRETOS */
+const secrets=[
+"Siempre contigo 💜",
+"Tu amor es lo unico que necesito",
+"Mi persona favorita",
+"Gracias por llegar a mi vida"
+];
+
+document.body.addEventListener("click",e=>{
+const s=document.createElement("div");
+s.className="secret";
+s.innerText=secrets[Math.floor(Math.random()*secrets.length)];
+s.style.left=e.clientX+"px";
+s.style.top=e.clientY+"px";
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),2000);
+});
+
+/* CONTADOR */
+let t=10;
+const cd=document.getElementById("countdown");
+const timer=setInterval(()=>{
+t--;
+cd.innerText="La sorpresa comienza en: "+t;
+if(t<=0){
+clearInterval(timer);
+cd.innerText="Mi corazón tiene tanto de ti que ya es difícil de llamarlo mío 💜";
+typeLove();
+setTimeout(()=>document.body.classList.add("night"),30000);
+}
+},1000);
+
+/* TE AMO */
+const text="Te amo 💜";
+let i=0;
+function typeLove(){
+if(i<text.length){
+loveText.innerHTML+=text.charAt(i++);
+setTimeout(typeLove,180);
+}
+}
+
+/* CARTA */
+function openLetter(){
+document.querySelector(".letter").classList.toggle("open");
+}
+
+/* MÚSICA — FUNCIONA EN PC Y CEL */
+const song=document.getElementById("loveSong");
+const btn=document.getElementById("musicBtn");
+let playing=false;
+
+btn.addEventListener("click",()=>{
+if(!playing){
+song.currentTime=0;
+song.play().then(()=>{
+playing=true;
+btn.innerText="⏸️ Pausar canción";
+}).catch(()=>{
+alert("No se pudo reproducir el audio");
+});
+}else{
+song.pause();
+playing=false;
+btn.innerText="💜 Reproducir nuestra canción 💜";
+}
+});
+
+/* FINAL */
+window.addEventListener("beforeunload",e=>{
+e.preventDefault();
+e.returnValue="Gracias por sentir esto conmigo 💜";
+});
+</script>
+
+</body>
+</html>
